@@ -6,7 +6,6 @@
     <block wx:for='{{bannerArr}}'>
       <swiper-item class='banner-item' data-id='{{item.key_word}}' bindtap='onProductItemTap'>
               <image mode='aspectFill' src='{{item.img.url}}'></image>
-        <image mode='aspectFill' src='{{item.img.url}}'></image>
       </swiper-item>
     </block>
   </swiper>
