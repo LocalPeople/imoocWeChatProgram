@@ -2,16 +2,20 @@
 <view class='container detail-container'>
   <view class='detail-header-box'>
     <view class='fixed-btns-box'>
-       <view class='fixed-cart'><!-- 右上角购物车 -->
+      <view class='fixed-cart'>
+        <!-- 右上角购物车 -->
         <image src='../../imgs/icon/cart@top.png'></image>
-      </view> 
+        <view wx:if='{{cartTotalCount>0}}'>{{cartTotalCount}}</view>
+      </view>
     </view>
 
-    <view class='detail-topic-img'><!-- 商品图片 -->
+    <view class='detail-topic-img'>
+      <!-- 商品图片 -->
       <image src='{{product.main_img_url}}' mode='aspectFit'></image>
     </view>
 
-    <view class='cart-box'><!-- 用户选项栏 -->
+    <view class='cart-box'>
+      <!-- 用户选项栏 -->
       <view class='product-counts'>
         <picker class="{{product.stock==0?'disabled':''}}" range='{{countsArray}}' bindchange='onPickerValueChange' value='0'>
           <view>
@@ -22,13 +26,14 @@
         </picker>
       </view>
       <view class='middle-border'></view>
-      <view class="add-cart-btn {{product.stock==0?'disabled':''}}">
+      <view class="add-cart-btn {{product.stock==0?'disabled':''}}" bindtap='onAddCartBtnTap'>
         <text>加入购物车</text>
         <image class='cart-icon' src='../../imgs/icon/cart.png'></image>
       </view>
     </view>
-    
-    <view class='basic-info-box'><!-- 商品信息 -->
+
+    <view class='basic-info-box'>
+      <!-- 商品信息 -->
       <view class='stock' wx:if='{{product.stock>0}}'>有货</view>
       <view class='stcok no' wx:else>缺货</view>
       <view class='name'>{{product.name}}</view>

@@ -1,66 +1,61 @@
 // pages/cart/cart.js
+import { Cart } from 'cart.model.js';
+
+var cart = new Cart();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-  
+    this._refreshUI();
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  toggleSelect: function (event) {
+    var id = cart.getDataset(event, 'id');
+    var status = cart.getDataset(event, 'status');
+    var index = this._getProductIndex(id);
+    if (index >= 0) {
+      cart.setSelectStatus(index, !status);
+      this._refreshUI();
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
+  toggleSelectAll: function (event) {
+    var status = cart.getDataset(event, 'status');
+    cart.setAllStatus(!status);
+    this._refreshUI();
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
+  _refreshUI: function () {
+    this.setData({
+      'selectedCount': cart.getTotalCount(false),//获取购物车勾选商品总数
+      'selectedTypeCount': cart.getSelectedTypeCount(),//获取购物车勾选商品类型总数
+      'account': cart.getTotalAccount(false),//获取购物车勾选商品总价
+      'cartData': cart.getCartData()//获取购物车所有商品信息
+    });
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
+  _getProductIndex: function (id) {
+    var cartData = this.data.cartData;
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+    for (let i = 0; i < cartData.length; i++) {
+      if (cartData[i].id == id) {
+        return i;
+      }
+    }
+    return -1;
   }
 })

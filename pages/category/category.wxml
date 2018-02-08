@@ -5,7 +5,7 @@
   <view class='category-box'>
     <view class='left-box'>
       <block wx:for='{{categoryTypeArr}}'>
-        <view class='menu-item'>
+        <view class="menu-item {{currentMenuIndex==index?'selected':''}}" data-id='{{item.id}}' data-index='{{index}}' bindtap='onCategoryChanged'>
           {{item.name}}
         </view>
       </block>
