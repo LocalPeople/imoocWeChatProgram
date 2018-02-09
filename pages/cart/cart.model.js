@@ -88,17 +88,38 @@ class Cart extends Base {
   }
 
   setSelectStatus(index, status) {
-    var cartData = wx.getStorageSync(this._storageKey);
+    var cartData = this.getCartData();
     cartData[index].selectStatus = status;
     wx.setStorageSync(this._storageKey, cartData);
   }
 
   setAllStatus(status) {
-    var cartData = wx.getStorageSync(this._storageKey);
+    var cartData = this.getCartData();
     for (let i = 0; i < cartData.length; i++) {
       cartData[i].selectStatus = status;
     }
     wx.setStorageSync(this._storageKey, cartData);
+  }
+
+  changeProductCount(id, change) {
+    var cartData = this.getCartData();
+    for (let i = 0; i < cartData.length; i++) {
+      if (cartData[i].id == id) {
+        if (cartData[i].count + change > 0) {
+          cartData[i].count += change;
+          wx.setStorageSync(this._storageKey, cartData);
+        }
+        return;
+      }
+    }
+  }
+
+  deleteProduct(index) {
+    if (index >= 0) {
+      var cartData = this.getCartData();
+      cartData.splice(index, 1);
+      wx.setStorageSync(this._storageKey, cartData);
+    }
   }
 }
 

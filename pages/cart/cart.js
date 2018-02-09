@@ -39,6 +39,28 @@ Page({
     this._refreshUI();
   },
 
+  onCountChanged: function (event) {
+    var id = cart.getDataset(event, 'id');
+    var type = cart.getDataset(event, 'type');
+    if (type == 'decrease') {
+      cart.changeProductCount(id, -1);
+    }
+    else if (type == 'increase') {
+      cart.changeProductCount(id, 1);
+    }
+    this._refreshUI();
+  },
+
+  onDelete: function(event){
+    var index=cart.getDataset(event, 'index');
+    cart.deleteProduct(index);
+    this._refreshUI();
+  },
+
+  submitOrder: function(event){
+
+  },
+
   _refreshUI: function () {
     this.setData({
       'selectedCount': cart.getTotalCount(false),//获取购物车勾选商品总数

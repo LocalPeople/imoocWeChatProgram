@@ -22,12 +22,12 @@
 
               <view class='bottom-box'>
                 <view class='cart-item-counts'>
-                  <view class='btns'>-</view>
+                  <view class="btns {{item.count==1?'disabled':''}}" data-id='{{item.id}}' data-type='decrease' bindtap='onCountChanged'>-</view>
                   <view class='counts'>{{item.count}}</view>
-                  <view class='btns'>+</view>
+                  <view class='btns' data-id='{{item.id}}' data-type='increase' bindtap='onCountChanged'>+</view>
                 </view>
 
-                <view class='delete'>×</view>
+                <view class='delete' data-index='{{index}}' bindtap='onDelete'>×</view>
               </view>
             </view>
           </view>

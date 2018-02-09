@@ -64,5 +64,11 @@ Page({
     this.setData({
       'cartTotalCount': this.data.cartTotalCount+this.data.productCount
     });
+  },
+
+  onCartTap: function(event){
+    wx.switchTab({
+      url: '/pages/cart/cart',
+    })
   }
 })
