@@ -1,4 +1,10 @@
 // pages/order/order.js
+import {Cart} from '../cart/cart.model.js'
+import {Address} from '../../utils/address.js'
+
+var cart=new Cart();
+var address=new Address();
+
 Page({
 
   /**
@@ -12,7 +18,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var account=options.account;
+
+    var productsData = cart.getCartData(false);
+    // console.log(productsData);
+
+    this.setData({
+      'productsArr': productsData,
+      'account': account,
+      'orderStatus': 0
+    });
+  },
+
+  editAddress: function(event){
+    var that=this;
+    wx.chooseAddress({
+      success: function(res){
+        var addressInfo={
+          name: res.userName,
+          mobile: res.telNumber,
+          totalDetail: address.mergeAddress(res)
+        };
+
+        that.setData({
+          'addressInfo': addressInfo
+        });
+      }
+    })
   },
 
   /**

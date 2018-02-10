@@ -26,14 +26,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
-			"list": [
-				{
-					"id": -1,
-					"name": "自定义",
-					"pathName": "pages/cart/cart"
-				}
-			]
+			"current": -1,
+			"list": []
 		}
 	}
 }

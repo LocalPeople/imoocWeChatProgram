@@ -64,10 +64,20 @@ class Cart extends Base {
     return count;
   }
 
-  getCartData() {
+  getCartData(isAll = true) {
     var cartData = wx.getStorageSync(this._storageKey);
     if (!cartData) {
       cartData = [];
+    }
+
+    if (!isAll) {
+      var selectedCartData = [];
+      for (let i = 0; i < cartData.length; i++) {
+        if (cartData[i].selectStatus) {
+          selectedCartData.push(cartData[i]);
+        }
+      }
+      return selectedCartData;
     }
     return cartData;
   }

@@ -51,14 +51,16 @@ Page({
     this._refreshUI();
   },
 
-  onDelete: function(event){
-    var index=cart.getDataset(event, 'index');
+  onDelete: function (event) {
+    var index = cart.getDataset(event, 'index');
     cart.deleteProduct(index);
     this._refreshUI();
   },
 
-  submitOrder: function(event){
-
+  submitOrder: function (event) {
+    wx.navigateTo({
+      url: '../order/order?account=' + this.data.account + '&from=cart',
+    })
   },
 
   _refreshUI: function () {
