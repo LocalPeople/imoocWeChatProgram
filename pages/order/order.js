@@ -28,6 +28,12 @@ Page({
       'account': account,
       'orderStatus': 0
     });
+
+    address.getAddress((addressInfo)=>{
+      this.setData({
+        'addressInfo': addressInfo
+      })
+    })
   },
 
   editAddress: function(event){
@@ -37,12 +43,14 @@ Page({
         var addressInfo={
           name: res.userName,
           mobile: res.telNumber,
-          totalDetail: address.mergeAddress(res)
+          totalDetail: address.getAddressString(res)
         };
 
         that.setData({
           'addressInfo': addressInfo
         });
+
+        address.submitAddress(res);
       }
     })
   },
