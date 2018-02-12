@@ -124,12 +124,26 @@ class Cart extends Base {
     }
   }
 
-  deleteProduct(index) {
+  deleteByIndex(index) {
     if (index >= 0) {
       var cartData = this.getCartData();
       cartData.splice(index, 1);
       wx.setStorageSync(this._storageKey, cartData);
     }
+  }
+
+  deleteByID(ids) {
+    if (!(ids instanceof Array)) {
+      ids = [ids];
+    }
+    var cartData = this.getCartData();
+    for (let i = 0; i < ids.length; i++) {
+      var info = this.doCartHaveId(ids[i], cartData);
+      if (info.index != -1) {
+        cartData.splice(info.index, 1);
+      }
+    }
+    wx.setStorageSync(this._storageKey, cartData)
   }
 }
 

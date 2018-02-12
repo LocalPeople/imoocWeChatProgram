@@ -53,7 +53,7 @@ Page({
 
   onDelete: function (event) {
     var index = cart.getDataset(event, 'index');
-    cart.deleteProduct(index);
+    cart.deleteByIndex(index);
     this._refreshUI();
   },
 
