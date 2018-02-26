@@ -96,7 +96,7 @@
 .contact .val {
   color: #333;
   white-space: nowrap;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .contact-box .detail {

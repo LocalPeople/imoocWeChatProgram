@@ -20,8 +20,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var account = options.account;
+    if (options.from == 'cart') {
+      this._fromCart(options.account);
+    }
+    else if (options.from == 'my') {
+      this._fromOrderId(options.id);
+    }
+  },
 
+  onShow: function () {
+    if (this.data.id) {
+      this._fromOrderId(this.data.id);
+    }
+  },
+
+  _fromCart: function (account) {
     var productsData = cart.getCartData(false);
     // console.log(productsData);
 
@@ -38,28 +51,25 @@ Page({
     })
   },
 
-  onShow: function () {
-    if (this.data.id) {
-      var id = this.data.id;
-      order.getOrderInfoById(id, (res) => {
-        // console.log(res);
-        this.setData({
-          'orderStatus': res.status,
-          'productsArr': res.snap_items,
-          'account': res.total_price,
-          'basicInfo': {
-            'orderTime': res.create_time,
-            'orderNo': res.order_no
-          }
-        });
-
-        var addressInfo=res.snap_address;
-        addressInfo.totalDetail = address.getAddressString(addressInfo);
-        this.setData({
-          'addressInfo': addressInfo
-        });
+  _fromOrderId: function (id) {
+    order.getOrderInfoById(id, (res) => {
+      // console.log(res);
+      this.setData({
+        'orderStatus': res.status,
+        'productsArr': res.snap_items,
+        'account': res.total_price,
+        'basicInfo': {
+          'orderTime': res.create_time,
+          'orderNo': res.order_no
+        }
       });
-    }
+
+      var addressInfo = res.snap_address;
+      addressInfo.totalDetail = address.getAddressString(addressInfo);
+      this.setData({
+        'addressInfo': addressInfo
+      });
+    });
   },
 
   editAddress: function (event) {

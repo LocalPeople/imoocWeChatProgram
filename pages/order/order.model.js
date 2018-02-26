@@ -13,7 +13,7 @@ class Order extends Base {
       type: 'POST',
       data: { products: orderInfo },
       sCallBack: function (res) {
-        that._execSetStorageSync(true);
+        that.execSetStorageSync(true);
         callback && callback(res);
       }
     }
@@ -48,8 +48,8 @@ class Order extends Base {
     //   }
     // }
     // this.request(params);
-    
-    callback && callback(2);//跳过微信付款
+
+    callback && callback(1);//跳过微信付款
   }
 
   getOrderInfoById(id, callback) {
@@ -63,8 +63,23 @@ class Order extends Base {
     this.request(params);
   }
 
-  _execSetStorageSync(data) {
+  execSetStorageSync(data) {
     wx.setStorageSync(this._storageKeyName, data);
+  }
+
+  hasNewOrder() {
+    return wx.getStorageSync(this._storageKeyName);
+  }
+
+  getOrders(pageIndex, callback) {
+    var params = {
+      url: 'order/by_user?page=' + pageIndex,
+      type: 'GET',
+      sCallBack: function (res) {
+        callback && callback(res);
+      }
+    }
+    this.request(params);
   }
 }
 

@@ -30,7 +30,7 @@ class Token {
             wx.setStorageSync('token', res.data.token);
             callback && callback(res.data.token);
           }
-        })
+        });
       }
     })
   }
